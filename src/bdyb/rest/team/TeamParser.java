@@ -37,7 +37,6 @@ public class TeamParser {
 				teamList.add(t);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return teamList;	}
@@ -46,6 +45,31 @@ public class TeamParser {
 		String query =  String.format("INSERT INTO teams VALUES("
 				+ "team_seq.nextval, %s, null, null, '%s', '%s', '%s', '%s', '%s', %s",
 				t.getManageriD(), t.getFullName(), t.getAbbreviation(), t.getCountry(), t.getCounty(), t.getTown(), "null");
+		return query;
+	}
+
+	static String createUpdateQuery(Integer teamid, Integer stats, Integer league, String fullname, String abbname,
+			String country, String county, String town, String photo) {
+
+		String query = String.format("UPDATE teams SET ");
+		if(stats != null) 
+			query += String.format("stats_id = '%s', ", stats);
+		if(league != null) 
+			query += String.format("league_id = '%s', ", league);
+		if(fullname != null)
+			query += String.format("full_name = '%s', ", fullname);
+		if(abbname != null)
+			query += String.format("abb_name = '%s', ", abbname);
+		if(country != null)
+			query += String.format("country = '%s', ", country);
+		if(county != null)
+			query += String.format("county  = '%s', ", county);
+		if(town != null)
+			query += String.format("town = '%s', ", town);
+		if(photo != null)
+			query += String.format("photo = ?, ");
+		query = query.substring(0, query.length()-2);
+		query += String.format(" WHERE team_id = %s", teamid);
 		return query;
 	}
 

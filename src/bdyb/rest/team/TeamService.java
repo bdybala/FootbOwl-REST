@@ -6,8 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -31,14 +33,14 @@ public class TeamService {
 	@Path("/teams")
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String createTeam(@FormParam("idkierownika") int idkierownika,
-			@FormParam("pelnanazwa") String pelnanazwa,
-			@FormParam("krotkanazwa") String krotkanazwa,
-			@FormParam("kraj") String kraj,
-			@FormParam("wojewodztwo") String wojewodztwo,
-			@FormParam("miejscowosc") String miejscowosc,
+	public String createTeam(
+			@FormParam("man_id") int idkierownika,
+			@FormParam("full_name") String pelnanazwa,
+			@FormParam("abb_name") String krotkanazwa,
+			@FormParam("country") String kraj,
+			@FormParam("county") String wojewodztwo,
+			@FormParam("town") String miejscowosc,
 			@Context HttpServletResponse servletResponse) {
-		
 		Team t = new Team(idkierownika, pelnanazwa, krotkanazwa, kraj, wojewodztwo, miejscowosc);
 		int rows = teamDao.createTeam(t);
 		
@@ -48,4 +50,20 @@ public class TeamService {
 			return FAILURE_RESULT;
 	}
 
+	@POST
+	@Path("/team/{teamid}")
+	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String updateTeam(
+			@PathParam("teamid") int teamid,
+			@FormParam("stats_id") int stats,
+			@FormParam("league_id") int league,
+			@FormParam("full_name") String fullname,
+			@FormParam("abb_name") String abbname,
+			@FormParam("country") String country,
+			@FormParam("county") String county,
+			@FormParam("town") String town,
+			@FormParam("photo") String photo) {
+		return teamDao.updateTeam(teamid, stats, league, fullname, abbname, country, county, town, photo);
+	}
 }

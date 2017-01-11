@@ -1,5 +1,8 @@
 package bdyb.rest.team;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,5 +46,31 @@ public class TeamDao extends DataAccessObject {
 			disconnectFromDatabase();
 		}
 		return rows;
+	}
+
+	String updateTeam(int teamid, int stats, int league, String fullname, String abbname, String country,
+			String county, String town, String photo) {
+
+		String sql = TeamParser.createUpdateQuery(teamid, stats, league, fullname, abbname, country, county, town, photo);
+		
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			if(photo != null) {
+				InputStream in = createFileFromUri(photo);
+				pStmt.setBlob(1, in);
+			}
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return sql;
 	}
 }
