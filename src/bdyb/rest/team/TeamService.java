@@ -56,8 +56,8 @@ public class TeamService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String updateTeam(
 			@PathParam("teamid") int teamid,
-			@FormParam("stats_id") int stats,
-			@FormParam("league_id") int league,
+			@FormParam("stats_id") Integer stats,
+			@FormParam("league_id") Integer league,
 			@FormParam("full_name") String fullname,
 			@FormParam("abb_name") String abbname,
 			@FormParam("country") String country,

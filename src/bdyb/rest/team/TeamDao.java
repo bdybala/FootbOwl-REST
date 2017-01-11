@@ -48,7 +48,7 @@ public class TeamDao extends DataAccessObject {
 		return rows;
 	}
 
-	String updateTeam(int teamid, int stats, int league, String fullname, String abbname, String country,
+	String updateTeam(int teamid, Integer stats, Integer league, String fullname, String abbname, String country,
 			String county, String town, String photo) {
 
 		String sql = TeamParser.createUpdateQuery(teamid, stats, league, fullname, abbname, country, county, town, photo);
