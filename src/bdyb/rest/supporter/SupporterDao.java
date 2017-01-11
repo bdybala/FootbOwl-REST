@@ -16,7 +16,7 @@ public class SupporterDao extends DataAccessObject {
 		final String sql = "SELECT accounts.acc_id, acc_type, "
 				+ "TO_CHAR(reg_date, 'YYYY-MM-DD HH24:MI:SS') \"reg_date\", "
 				+ "TO_CHAR(last_logged, 'YYYY-MM-DD HH24:MI:SS') \"last_logged\", "
-				+ "first_name, last_name, birthday, photo, login, pass "
+				+ "first_name, last_name, birthday, photo, login, pass, is_logged "
 				+ "FROM supporters LEFT JOIN accounts "
 				+ "ON accounts.acc_id = supporters.acc_id";
 		List<Supporter> supporterList = new ArrayList<Supporter>();

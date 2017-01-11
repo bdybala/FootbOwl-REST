@@ -22,12 +22,13 @@ public class Supporter {
 	private byte[] photo;
 	private String login;
 	private String pass;
+	private int isLogged;
 	
 	@Override
 	public String toString() {
 		return String.format(
-				"Supporter [iD=%s, regDate=%s, lastLogged=%s, firstName=%s, lastName=%s, birthday=%s, photo=%s, login=%s, pass=%s]",
-				iD, regDate, lastLogged, firstName, lastName, birthday, Arrays.toString(photo), login, pass);
+				"Supporter [iD=%s, regDate=%s, lastLogged=%s, firstName=%s, lastName=%s, birthday=%s, photo=%s, login=%s, pass=%s, isLogged=%s]",
+				iD, regDate, lastLogged, firstName, lastName, birthday, Arrays.toString(photo), login, pass, isLogged);
 	}
 
 	public Supporter() {
@@ -40,7 +41,6 @@ public class Supporter {
 		try {
 			javaDate = dbDateFormat.parse(dataurodzenia);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		birthday = new Date(javaDate.getTime());
@@ -106,6 +106,12 @@ public class Supporter {
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	public int getIsLogged() {
+		return isLogged;
+	}
+	public void setIsLogged(int isLogged) {
+		this.isLogged = isLogged;
 	}
 	
 }

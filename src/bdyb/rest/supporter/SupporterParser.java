@@ -21,6 +21,7 @@ public class SupporterParser {
 	private static final String DB_LOGIN = 		"login";
 	private static final String DB_PASSWORD = 	"pass";
 	private static final String DB_PHOTO = 		"photo";
+	private static final String DB_IS_LOGGED =	"is_logged";
 
 	static List<Supporter> parseListFromResultSet(ResultSet rs) {
 		List<Supporter> supporterList = new ArrayList<Supporter>();
@@ -41,14 +42,13 @@ public class SupporterParser {
 				s.setPhoto(			rs.getBytes(	DB_PHOTO));
 				s.setLogin(			rs.getString(	DB_LOGIN));
 				s.setPass(			rs.getString(	DB_PASSWORD));
-
+				s.setIsLogged(		rs.getInt(		DB_IS_LOGGED));
+				
 				supporterList.add(s);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return supporterList;
