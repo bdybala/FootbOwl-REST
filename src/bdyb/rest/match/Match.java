@@ -4,10 +4,12 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import bdyb.rest.help.SqlDateAdapter;
 
+@XmlRootElement(name = "match")
 public class Match {
 
 	private int match_id;

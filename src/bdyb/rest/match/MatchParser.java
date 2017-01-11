@@ -65,7 +65,7 @@ public class MatchParser {
 		if(match_date !=null) query +=	"match_date = " + "TO_DATE('" + match_date + "', 'yyyy-mm-dd hh24:mi:ss'), ";
 		query = query.substring(0, query.length()-2);
 		query += String.format(" WHERE match_id = %s", match_id);
-		return null;
+		return query;
 	}
 
 }
