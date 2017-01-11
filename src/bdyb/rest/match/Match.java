@@ -1,73 +1,92 @@
 package bdyb.rest.match;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import bdyb.rest.help.SqlDateAdapter;
 
 public class Match {
 
-	private int iD;
-	private int iDTabeli;
-	private int iDDom;
-	private int iDWyj;
-	private int bramkiDom;
-	private int bramkiWyj;
-	private Date dataMeczu;
+	private int match_id;
+	private int league_id;
+	private int home_id;
+	private int away_id;
+	private int goals_home;
+	private int goals_away;
+	private Date match_date;
 	
+	public Match(int league_id, int home_id, int away_id, int goals_home, int goals_away, String match_date) {
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		java.util.Date javaDate = null;
+		try {
+			javaDate = dbDateFormat.parse(match_date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		this.league_id = league_id;
+		this.home_id = home_id;
+		this.away_id = away_id;
+		this.goals_home = goals_home;
+		this.goals_away = goals_away;
+		this.match_date = new Date(javaDate.getTime());
+	}
+
+	public Match() {
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Match [iD=%s, iDTabeli=%s, iDDom=%s, iDWyj=%s, bramkiDom=%s, bramkiWyj=%s, dataMeczu=%s]",
-				iD, iDTabeli, iDDom, iDWyj, bramkiDom, bramkiWyj, dataMeczu);
+		return String.format(
+				"Match [match_id=%s, league_id=%s, home_id=%s, away_id=%s, goals_home=%s, goals_away=%s, match_date=%s]",
+				match_id, league_id, home_id, away_id, goals_home, goals_away, match_date);
 	}
 	
-	public int getiD() {
-		return iD;
+	public int getMatch_id() {
+		return match_id;
 	}
-	public int getiDTabeli() {
-		return iDTabeli;
+	public void setMatch_id(int match_id) {
+		this.match_id = match_id;
 	}
-	public int getiDDom() {
-		return iDDom;
+	public int getLeague_id() {
+		return league_id;
 	}
-	public int getiDWyj() {
-		return iDWyj;
+	public void setLeague_id(int league_id) {
+		this.league_id = league_id;
 	}
-	public int getBramkiDom() {
-		return bramkiDom;
+	public int getHome_id() {
+		return home_id;
 	}
-	public int getBramkiWyj() {
-		return bramkiWyj;
+	public void setHome_id(int home_id) {
+		this.home_id = home_id;
 	}
-	public Date getDataMeczu() {
-		return dataMeczu;
+	public int getAway_id() {
+		return away_id;
 	}
-	@XmlElement
-	public void setiD(int iD) {
-		this.iD = iD;
+	public void setAway_id(int away_id) {
+		this.away_id = away_id;
 	}
-	@XmlElement
-	public void setiDTabeli(int iDTabeli) {
-		this.iDTabeli = iDTabeli;
+	public int getGoals_home() {
+		return goals_home;
 	}
-	@XmlElement
-	public void setiDDom(int iDDom) {
-		this.iDDom = iDDom;
+	public void setGoals_home(int goals_home) {
+		this.goals_home = goals_home;
 	}
-	@XmlElement
-	public void setiDWyj(int iDWyj) {
-		this.iDWyj = iDWyj;
+	public int getGoals_away() {
+		return goals_away;
 	}
-	@XmlElement
-	public void setBramkiDom(int bramkiDom) {
-		this.bramkiDom = bramkiDom;
+	public void setGoals_away(int goals_away) {
+		this.goals_away = goals_away;
 	}
-	@XmlElement
-	public void setBramkiWyj(int bramkiWyj) {
-		this.bramkiWyj = bramkiWyj;
+	@XmlJavaTypeAdapter(SqlDateAdapter.class)
+	public Date getMatch_date() {
+		return match_date;
 	}
-	@XmlElement
-	public void setDataMeczu(Date dataMeczu) {
-		this.dataMeczu = dataMeczu;
+	public void setMatch_date(Date match_date) {
+		this.match_date = match_date;
 	}
 	
 }
