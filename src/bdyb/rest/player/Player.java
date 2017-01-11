@@ -3,6 +3,7 @@ package bdyb.rest.player;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -24,7 +25,16 @@ public class Player {
 	private int teamiD;
 	private String position;
 	private String prefFoot;
+	private int isLogged;
 	
+	@Override
+	public String toString() {
+		return String.format(
+				"Player [iD=%s, regDate=%s, lastLogged=%s, firstName=%s, lastName=%s, birthday=%s, photo=%s, login=%s, pass=%s, teamiD=%s, position=%s, prefFoot=%s, isLogged=%s]",
+				iD, regDate, lastLogged, firstName, lastName, birthday, Arrays.toString(photo), login, pass, teamiD,
+				position, prefFoot, isLogged);
+	}
+
 	public Player() {
 	}
 
@@ -124,4 +134,11 @@ public class Player {
 	public void setPrefFoot(String prefFoot) {
 		this.prefFoot = prefFoot;
 	}
+	public int getIsLogged() {
+		return isLogged;
+	}
+	public void setIsLogged(int isLogged) {
+		this.isLogged = isLogged;
+	}
+	
 }

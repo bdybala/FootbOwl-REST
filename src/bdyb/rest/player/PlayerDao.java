@@ -16,7 +16,7 @@ public class PlayerDao extends DataAccessObject {
 		final String sql = "SELECT accounts.acc_id, acc_type, "
 				+ "TO_CHAR(reg_date, 'YYYY-MM-DD HH24:MI:SS') \"reg_date\", "
 				+ "TO_CHAR(last_logged, 'YYYY-MM-DD HH24:MI:SS') \"last_logged\", "
-				+ "first_name, last_name, birthday, photo, login, pass, team_id, position, pref_foot "
+				+ "first_name, last_name, birthday, photo, login, pass, team_id, position, pref_foot, is_logged "
 				+ "FROM players LEFT JOIN accounts "
 				+ "ON accounts.acc_id = players.acc_id";
 		List<Player> playerList = new ArrayList<Player>();

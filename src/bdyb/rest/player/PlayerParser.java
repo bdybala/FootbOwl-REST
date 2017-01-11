@@ -24,6 +24,7 @@ public class PlayerParser {
 	private static final String DB_TEAM_ID =	"team_id";
 	private static final String DB_POSITION =	"position";
 	private static final String DB_PREF_FOOT =	"pref_foot";
+	private static final String DB_IS_LOGGED =	"is_logged";
 
 	static List<Player> parseListFromResultSet(ResultSet rs) {
 		List<Player> playerList = new ArrayList<Player>();
@@ -47,6 +48,7 @@ public class PlayerParser {
 				p.setTeamiD(		rs.getInt(		DB_TEAM_ID));
 				p.setPosition(		rs.getString(	DB_POSITION));
 				p.setPrefFoot(		rs.getString(	DB_PREF_FOOT));
+				p.setIsLogged(		rs.getInt(		DB_IS_LOGGED));
 
 				playerList.add(p);
 			}
