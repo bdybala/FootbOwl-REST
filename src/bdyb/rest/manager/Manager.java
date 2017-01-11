@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -24,6 +25,7 @@ public class Manager implements Serializable {
 	private byte[] photo;
 	private String login;
 	private String pass;
+	private int isLogged;
 	
 
 	public Manager() {
@@ -48,8 +50,8 @@ public class Manager implements Serializable {
 	@Override
 	public String toString() {
 		return String.format(
-				"Manager [iD=%s, regDate=%s, lastLogged=%s, firstName=%s, lastName=%s, birthday=%s, photo=%s, login=%s, pass=%s]",
-				iD, regDate, lastLogged, firstName, lastName, birthday, photo, login, pass);
+				"Manager [iD=%s, regDate=%s, lastLogged=%s, firstName=%s, lastName=%s, birthday=%s, photo=%s, login=%s, pass=%s, isLogged=%s]",
+				iD, regDate, lastLogged, firstName, lastName, birthday, Arrays.toString(photo), login, pass, isLogged);
 	}
 	
 	public int getiD() {
@@ -108,6 +110,12 @@ public class Manager implements Serializable {
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	public int getIsLogged() {
+		return isLogged;
+	}
+	public void setIsLogged(int isLogged) {
+		this.isLogged = isLogged;
 	}
 	
 }

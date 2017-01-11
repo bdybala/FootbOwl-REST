@@ -21,6 +21,7 @@ public class ManagerParser {
 	private static final String DB_LOGIN = 		"login";
 	private static final String DB_PASSWORD = 	"pass";
 	private static final String DB_PHOTO = 		"photo";
+	private static final String DB_IS_LOGGED =	"is_logged";
 
 	static List<Manager> parseListFromResultSet(ResultSet rs) {
 		List<Manager> managerList = new ArrayList<Manager>();
@@ -41,7 +42,8 @@ public class ManagerParser {
 				m.setPhoto(			rs.getBytes(	DB_PHOTO));
 				m.setLogin(			rs.getString(	DB_LOGIN));
 				m.setPass(			rs.getString(	DB_PASSWORD));
-
+				m.setIsLogged(		rs.getInt(		DB_IS_LOGGED));
+				
 				managerList.add(m);
 			}
 		} catch (SQLException e) {
