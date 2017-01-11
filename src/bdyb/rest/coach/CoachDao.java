@@ -16,7 +16,7 @@ public class CoachDao extends DataAccessObject {
 		final String sql = "SELECT accounts.acc_id, acc_type, "
 				+ "TO_CHAR(reg_date, 'YYYY-MM-DD HH24:MI:SS') \"reg_date\", "
 				+ "TO_CHAR(last_logged, 'YYYY-MM-DD HH24:MI:SS') \"last_logged\", "
-				+ "first_name, last_name, birthday, photo, login, pass, licence, team_id "
+				+ "first_name, last_name, birthday, photo, login, pass, licence, team_id, is_logged "
 				+ "FROM coaches LEFT JOIN accounts "
 				+ "ON accounts.acc_id = coaches.acc_id";
 		List<Coach> coachList = new ArrayList<Coach>();

@@ -23,6 +23,7 @@ public class CoachParser {
 	private static final String DB_PHOTO = 		"photo";
 	private static final String DB_LICENCE =	"licence";
 	private static final String DB_TEAM_ID =	"team_id";
+	private static final String DB_IS_LOGGED =	"is_logged";
 	
 	public static List<Coach> parseListFromResultSet(ResultSet rs) {
 		List<Coach> coachList = new ArrayList<Coach>();
@@ -45,14 +46,13 @@ public class CoachParser {
 				c.setPass(			rs.getString(	DB_PASSWORD));
 				c.setLicence(		rs.getString(	DB_LICENCE));
 				c.setTeamiD(		rs.getInt(		DB_TEAM_ID));
+				c.setIsLogged(		rs.getInt(		DB_IS_LOGGED));
 				
 				coachList.add(c);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return coachList;

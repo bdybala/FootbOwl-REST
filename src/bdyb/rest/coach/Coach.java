@@ -27,6 +27,7 @@ public class Coach implements Serializable {
 	private String pass;
 	private String licence;
 	private int teamiD;
+	private int isLogged;
 	
 	public Coach() {
 		super();
@@ -39,7 +40,6 @@ public class Coach implements Serializable {
 		try {
 			javaDate = dbDateFormat.parse(dataurodzenia);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		firstName = imie;
@@ -54,9 +54,9 @@ public class Coach implements Serializable {
 	@Override
 	public String toString() {
 		return String.format(
-				"Coach [iD=%s, regDate=%s, lastLogged=%s, firstName=%s, lastName=%s, birthday=%s, photo=%s, login=%s, pass=%s, licence=%s, teamiD=%s]",
+				"Coach [iD=%s, regDate=%s, lastLogged=%s, firstName=%s, lastName=%s, birthday=%s, photo=%s, login=%s, pass=%s, licence=%s, teamiD=%s, isLogged=%s]",
 				iD, regDate, lastLogged, firstName, lastName, birthday, Arrays.toString(photo), login, pass, licence,
-				teamiD);
+				teamiD, isLogged);
 	}
 
 	public int getiD() {
@@ -127,6 +127,12 @@ public class Coach implements Serializable {
 	}
 	public void setTeamiD(int teamiD) {
 		this.teamiD = teamiD;
+	}
+	public int getIsLogged() {
+		return isLogged;
+	}
+	public void setIsLogged(int isLogged) {
+		this.isLogged = isLogged;
 	}
 	
 }
