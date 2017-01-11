@@ -62,8 +62,10 @@ public class SupporterParser {
 		return query;
 	}
 
-	static String createUpdateQuery(String userid, String imie, String nazwisko, String haslo, String photo) {
+	static String createUpdateQuery(String userid, String imie, String nazwisko, String login, String haslo, String photo, Integer islogged) {
 		String query = String.format("UPDATE accounts SET ");
+		if(login != null) 
+			query += String.format("login = '%s', ", login);
 		if(imie != null) 
 			query += String.format("first_name = '%s', ", imie);
 		if(nazwisko != null)
@@ -72,6 +74,8 @@ public class SupporterParser {
 			query += String.format("pass = '%s', ", haslo);
 		if(photo != null)
 			query += String.format("photo = ?, ");
+		if(islogged != null)
+			query += String.format("islogged = ?, ", islogged);
 		query = query.substring(0, query.length()-2);
 		query += String.format(" WHERE acc_id = %s", userid);
 		return query;

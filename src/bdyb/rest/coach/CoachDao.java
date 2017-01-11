@@ -1,5 +1,8 @@
 package bdyb.rest.coach;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,6 +54,47 @@ public class CoachDao extends DataAccessObject {
 			disconnectFromDatabase();
 		}
 		return rows;
+	}
+
+	int selectLogin(String login) {
+		String sql = String.format("SELECT count(*) FROM accounts WHERE login = '%s'", login);
+		int rows = 0;
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rows = pStmt.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return rows;
+	}
+
+	String updateCoach(String userid, String imie, String nazwisko, String login, String haslo, String photo,
+			String licence, Integer teamiD, Integer islogged) {
+		String sql = CoachParser.createUpdateQuery(userid, imie, nazwisko, login, haslo, photo, licence, teamiD, islogged);
+
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			if(photo != null) {
+				InputStream in = createFileFromUri(photo);
+				pStmt.setBlob(1, in);
+			}
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return sql;
 	}
 	
 }

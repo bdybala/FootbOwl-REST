@@ -34,11 +34,12 @@ public class SupporterService {
 	@Path("/supporters")
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String createSupporter(@FormParam("imie") String imie,
-			@FormParam("nazwisko") String nazwisko,
-			@FormParam("dataurodzenia") String dataurodzenia,
+	public String createSupporter(
+			@FormParam("first_name") String imie,
+			@FormParam("last_name") String nazwisko,
+			@FormParam("birthday") String dataurodzenia,
 			@FormParam("login") String login,
-			@FormParam("haslo") String haslo,
+			@FormParam("pass") String haslo,
 			@Context HttpServletResponse servletResponse) {
 		
 		if(supporterDao.selectLogin(login) == 1) {
@@ -60,11 +61,13 @@ public class SupporterService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String updateSupporter(
 			@PathParam("userid") String userid,
-			@FormParam("imie") String imie,
-			@FormParam("nazwisko") String nazwisko,
-			@FormParam("haslo") String haslo,
-			@FormParam("photo") String photo) {
-		return supporterDao.updateSupporter(userid, imie, nazwisko,haslo, photo);
+			@FormParam("first_name") String imie,
+			@FormParam("last_name") String nazwisko,
+			@FormParam("login") String login,
+			@FormParam("pass") String haslo,
+			@FormParam("photo") String photo,
+			@FormParam("is_logged") Integer islogged) {
+		return supporterDao.updateSupporter(userid, imie, nazwisko, login, haslo, photo, islogged);
 	}
 	
 }

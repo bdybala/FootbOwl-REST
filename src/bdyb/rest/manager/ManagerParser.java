@@ -45,10 +45,8 @@ public class ManagerParser {
 				managerList.add(m);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return managerList;
@@ -62,9 +60,24 @@ public class ManagerParser {
 		return query;
 	}
 
-	static void parseLoginFromResultset(ResultSet rs) {
-		// TODO Auto-generated method stub
-		
+
+	static String createUpdateQuery(String userid, String imie, String nazwisko, String login, String haslo, String photo, Integer islogged) {
+		String query = String.format("UPDATE accounts SET ");
+		if(login != null) 
+			query += String.format("login = '%s', ", login);
+		if(imie != null) 
+			query += String.format("first_name = '%s', ", imie);
+		if(nazwisko != null)
+			query += String.format("last_name = '%s', ", nazwisko);
+		if(haslo != null)
+			query += String.format("pass = '%s', ", haslo);
+		if(photo != null)
+			query += String.format("photo = ?, ");
+		if(islogged != null) 
+			query += String.format("islogged = ?, ", islogged);
+		query = query.substring(0, query.length()-2);
+		query += String.format(" WHERE acc_id = %s", userid);
+		return query;
 	}
 	
 }

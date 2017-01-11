@@ -1,10 +1,20 @@
 package bdyb.rest.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import org.apache.commons.io.FileUtils;
 
 public class DataAccessObject {
 
@@ -90,6 +100,31 @@ public class DataAccessObject {
 			System.out.println("Error: unable to close statement");
 			e.printStackTrace();
 		}
+	}
+	
+	protected InputStream createFileFromUri(String photo) throws FileNotFoundException, URISyntaxException {
+		InputStream in = null;
+		File file = null;
+		String tDir = System.getProperty("java.io.tmpdir"); String path = tDir + "tmp" + ".jpg";
+		URI uri = new URI(photo);
+
+		if(uri.getScheme().contains("file")) 
+			file = new File(uri.getRawPath());
+		else if (uri.getScheme().contains("http")) {
+			try {
+				file = new File(path);
+				file.createNewFile();
+				file.deleteOnExit();
+				FileUtils.copyURLToFile(uri.toURL(), file);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (file != null)
+			in = new FileInputStream(file);
+		return in;
 	}
 	
 }

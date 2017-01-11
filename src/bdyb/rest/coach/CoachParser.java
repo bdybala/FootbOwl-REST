@@ -67,4 +67,30 @@ public class CoachParser {
 		return query;
 	}
 
+	static String createUpdateQuery(String userid, String imie, String nazwisko, String login, String haslo,
+			String photo, String licence, Integer teamiD, Integer islogged) {
+		
+		String query = String.format("CALL update_coach (" + userid);
+		
+		if (imie != null) query += 		", '" + imie + 		"'";
+		else query += ", null";
+		if (nazwisko != null) query += 	", '" + nazwisko + 	"'";
+		else query += ", null";
+		if (photo!= null) query += 		", ?";
+		else query += ", null";
+		if (login != null) query += 	", '" + login + 	"'";
+		else query += ", null";
+		if (haslo != null) query += 	", '" + haslo + 	"'";
+		else query += ", null";
+		if (islogged != null) query += 	", '" + islogged + 	"'";
+		else query += ", null";
+		if (licence != null) query += 	", '" + licence + 	"'";
+		else query += ", null";
+		if (teamiD != null) query += 	", '" + teamiD + 	"'";
+		else query += ", null";
+		query += ")";
+		
+		return query;
+	}
+
 }

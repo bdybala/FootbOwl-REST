@@ -1,19 +1,12 @@
 package bdyb.rest.supporter;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.io.FileUtils;
 
 import bdyb.rest.dao.DataAccessObject;
 
@@ -60,9 +53,9 @@ public class SupporterDao extends DataAccessObject {
 		return rows;
 	}
 
-	String updateSupporter(String userid, String imie, String nazwisko, String haslo, String photo) {
+	String updateSupporter(String userid, String imie, String nazwisko, String login, String haslo, String photo, Integer islogged) {
 		
-		String sql = SupporterParser.createUpdateQuery(userid, imie, nazwisko, haslo, photo);
+		String sql = SupporterParser.createUpdateQuery(userid, imie, nazwisko, login, haslo, photo, islogged);
 		
 		try {
 			connectToDatabase();
@@ -73,46 +66,16 @@ public class SupporterDao extends DataAccessObject {
 			}
 			pStmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closePreparedStatement();
 			disconnectFromDatabase();
 		}
 		return sql;
-	}
-
-	private InputStream createFileFromUri(String photo) throws URISyntaxException, FileNotFoundException {
-		InputStream in = null;
-		File file = null;
-		String tDir = System.getProperty("java.io.tmpdir"); String path = tDir + "tmp" + ".jpg";
-		URI uri = new URI(photo);
-		
-		if(uri.getScheme().contains("file")) 
-			file = new File(uri);
-		 else if (uri.getScheme().contains("http")) {
-			try {
-				file = new File(path);
-				file.createNewFile();
-				file.deleteOnExit();
-				FileUtils.copyURLToFile(uri.toURL(), file);
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (file != null)
-			in = new FileInputStream(file);
-		return in;
 	}
 
 	int selectLogin(String login) {

@@ -51,10 +51,8 @@ public class PlayerParser {
 				playerList.add(p);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return playerList;
@@ -65,6 +63,34 @@ public class PlayerParser {
 				+ "'%s','%s',TO_DATE('%s','yyyy-mm-dd'),'%s','%s','%s','%s','%s',%s)",
 				p.getFirstName(), p.getLastName(), p.getBirthday(),
 				p.getLogin(), p.getPass(), p.getTeamiD(), p.getPosition(), p.getPrefFoot(), "null");
+		
+		return query;
+	}
+
+	static String createUpdateQuery(String userid, String imie, String nazwisko, String photo, String login,
+			String haslo, Integer teamiD, String position, String foot, Integer islogged) {
+
+		String query = String.format("CALL update_player (" + userid);
+//update_player (userid , fn , ln , ph , l , p , islog , tid , pos , foot ) AS
+		if (imie != null) query += 		", '" + imie + 		"'";
+		else query += ", null";
+		if (nazwisko != null) query += 	", '" + nazwisko + 	"'";
+		else query += ", null";
+		if (photo!= null) query += 		", ?";
+		else query += ", null";
+		if (login != null) query += 	", '" + login + 	"'";
+		else query += ", null";
+		if (haslo != null) query += 	", '" + haslo + 	"'";
+		else query += ", null";
+		if (teamiD != null) query += 	", '" + teamiD + 	"'";
+		else query += ", null";
+		if (position != null) query += 	", '" + position + 	"'";
+		else query += ", null";
+		if (foot != null) query += 		", '" + foot + 	"'";
+		else query += ", null";
+		if (islogged != null) query += 	", '" + islogged + 	"'";
+		else query += ", null";
+		query += ")";
 		
 		return query;
 	}

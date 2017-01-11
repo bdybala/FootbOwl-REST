@@ -1,9 +1,8 @@
 package bdyb.rest.manager;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class ManagerDao extends DataAccessObject {
 				+ "ON accounts.acc_id = managers.acc_id";
 		List<Manager> managerList = new ArrayList<Manager>();
 		ResultSet rs = null;
-		
+
 		try {
 			connectToDatabase();
 			createPreparedStatement(sql);
@@ -34,35 +33,65 @@ public class ManagerDao extends DataAccessObject {
 			closePreparedStatement();
 			disconnectFromDatabase();
 		}
-		
+
 		return managerList;
 	}
 
 	int createManager(Manager manager) {
 		String sql = ManagerParser.createInsertQuery(manager);
 		int rows = 0;
-		
-		File blobFile = new File("E:/Obraz/Znak.jpg");
-		InputStream in = null;		
-		
 		try {
-			in = new FileInputStream(blobFile);
 			connectToDatabase();
 			createPreparedStatement(sql);
-			if( in != null) {
-				pStmt.setBlob(1, in);
-				rows = pStmt.executeUpdate();
-			}
+			rows = pStmt.executeUpdate();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO there's no blobFile
-			e.printStackTrace();
 		} finally {
 			closePreparedStatement();
 			disconnectFromDatabase();
 		}
 		return rows;
 	}
+
+	int selectLogin(String login) {
+		String sql = String.format("SELECT count(*) FROM accounts WHERE login = '%s'", login);
+		int rows = 0;
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rows = pStmt.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return rows;
+	}
+
+	String updateManager(String userid, String imie, String nazwisko, String login, String haslo, String photo, Integer islogged) {
+		String sql = ManagerParser.createUpdateQuery(userid, imie, nazwisko, login, haslo, photo, islogged);
+
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			if(photo != null) {
+				InputStream in = createFileFromUri(photo);
+				pStmt.setBlob(1, in);
+			}
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return sql;
+	}
+
 
 }

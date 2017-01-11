@@ -36,7 +36,6 @@ public class Manager implements Serializable {
 		try {
 			javaDate = dbDateFormat.parse(dataurodzenia);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		birthday = new Date(javaDate.getTime());
