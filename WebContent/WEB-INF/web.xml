@@ -6,7 +6,7 @@
   	<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
   		<init-param>
   			<param-name>jersey.config.server.provider.packages</param-name>
-  			<param-value>bdyb.rest.coach;bdyb.rest.manager;bdyb.rest.player;bdyb.rest.supporter;bdyb.rest.team;bdyb.rest.account;bdyb.rest.match</param-value>
+  			<param-value>bdyb.rest.coach;bdyb.rest.manager;bdyb.rest.player;bdyb.rest.supporter;bdyb.rest.team;bdyb.rest.account;bdyb.rest.match;bdyb.rest.training</param-value>
   		</init-param>
   </servlet>
   
