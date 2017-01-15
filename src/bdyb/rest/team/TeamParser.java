@@ -43,7 +43,7 @@ public class TeamParser {
 
 	static String createInsertQuery(Team t) {
 		String query =  String.format("INSERT INTO teams VALUES("
-				+ "team_seq.nextval, %s, null, null, '%s', '%s', '%s', '%s', '%s', %s",
+				+ "team_seq.nextval, %s, null, null, '%s', '%s', '%s', '%s', '%s', %s)",
 				t.getManageriD(), t.getFullName(), t.getAbbreviation(), t.getCountry(), t.getCounty(), t.getTown(), "null");
 		return query;
 	}
