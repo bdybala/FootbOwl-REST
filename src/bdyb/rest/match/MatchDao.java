@@ -68,4 +68,29 @@ public class MatchDao extends DataAccessObject {
 		return sql;
 	}
 
+	List<Match> getAllMatches(String from, String to) {
+		final String sql = "SELECT match_id, league_id, "
+				+ "home_id, away_id, goals_home, goals_away, "
+				+ "TO_CHAR(match_date, 'YYYY-MM-DD HH24:MI:SS') \"match_date\" "
+				+ "FROM matches "
+				+ "WHERE match_date > TO_DATE('" + from + "', 'yyyy-mm-dd') AND "
+				+ "match_date < TO_DATE('" + to + "', 'yyyy-mm-dd')";
+		List<Match> matchList = new ArrayList<Match>();
+		ResultSet rs = null;
+		
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			matchList = MatchParser.parseListFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		
+		return matchList;
+	}
+
 }

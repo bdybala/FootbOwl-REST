@@ -22,7 +22,7 @@ public class MatchService {
 	@GET
 	@Path("/matches")
 	@Produces(MediaType.APPLICATION_XML)
-	public List<Match> getCoaches() {
+	public List<Match> getMatches() {
 		List<Match> allMatches = matchDao.getAllMatches();
 		return allMatches;
 	}
@@ -42,6 +42,17 @@ public class MatchService {
 		Match matchToCreate = new Match(league_id, home_id, away_id, goals_home, goals_away, match_date);
 		matchDao.createMatch(matchToCreate);
 		return SUCCESS_RESULT;
+	}
+	
+	@POST
+	@Path("/matches")
+	@Produces(MediaType.APPLICATION_ATOM_XML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public List<Match> getMatches(
+			@FormParam("from") String from,
+			@FormParam("to") String to){
+		List<Match> allMatches = matchDao.getAllMatches(from, to);
+		return allMatches; 
 	}
 	
 	@POST
