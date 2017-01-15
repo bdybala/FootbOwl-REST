@@ -17,6 +17,7 @@ public class TrainingService {
 
 	TrainingDao trainingDao = new TrainingDao();
 	private static final String SUCCESS_RESULT="<result>success</result>";
+	private static final String FAILURE_RESULT="<result>failure</result>";
 	
 	@GET
 	@Path("/trainings")
@@ -61,5 +62,18 @@ public class TrainingService {
 			@FormParam("training_date") String date,
 			@FormParam("training_place") String place) {
 		return trainingDao.updateTraining(training_id, desc, date, place);
+	}
+	
+	@PUT
+	@Path("/assign")
+	@Produces(MediaType.APPLICATION_ATOM_XML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String assignPlayer(
+			@FormParam("player_id") int playerid,
+			@FormParam("training_id") int trainingid) {
+		int rows = trainingDao.assignPlayer(playerid, trainingid);
+		if (rows == 1) return SUCCESS_RESULT;
+		return FAILURE_RESULT;
+		
 	}
 }

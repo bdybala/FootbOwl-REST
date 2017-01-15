@@ -41,7 +41,6 @@ public class TrainingDao extends DataAccessObject {
 			connectToDatabase();
 			createPreparedStatement(sql);
 			rows = pStmt.executeUpdate();
-			System.out.println(rows);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		} finally {
@@ -91,6 +90,23 @@ public class TrainingDao extends DataAccessObject {
 		}
 		
 		return trainingList;
+	}
+
+	int assignPlayer(int playerid, int trainingid) {
+		String sql = TrainingParser.createAssignQuery(playerid, trainingid);
+
+		int rows = 0;
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rows = pStmt.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return rows;	
 	}
 
 }
