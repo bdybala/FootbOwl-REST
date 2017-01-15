@@ -38,6 +38,15 @@ public class PlayerService {
 		return p;
 	}
 
+	@GET
+	@Path("/team/{teamid}")
+	@Produces(MediaType.APPLICATION_XML)
+	public List<Player> getTeam(
+			@PathParam("teamid") int teamid) {
+		List<Player> teamSquad = playerDao.getTeam(teamid);
+		return teamSquad;
+	}
+	
 	@PUT
 	@Path("/players")
 	@Produces(MediaType.APPLICATION_XML)
