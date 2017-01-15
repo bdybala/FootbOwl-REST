@@ -16,7 +16,7 @@ public class MatchDao extends DataAccessObject {
 				+ "FROM matches";
 		List<Match> matchList = new ArrayList<Match>();
 		ResultSet rs = null;
-		
+
 		try {
 			connectToDatabase();
 			createPreparedStatement(sql);
@@ -28,9 +28,9 @@ public class MatchDao extends DataAccessObject {
 			closePreparedStatement();
 			disconnectFromDatabase();
 		}
-		
+
 		return matchList;
-	
+
 	}
 
 	int createMatch(Match m) {
@@ -54,7 +54,7 @@ public class MatchDao extends DataAccessObject {
 	String updateMatch(int match_id, Integer league_id, Integer home_id, Integer away_id, Integer goals_home, Integer goals_away,
 			String match_date) {
 		String sql = MatchParser.createUpdateQuery(match_id, league_id, home_id, away_id, goals_home, goals_away, match_date);
-	
+
 		try {
 			connectToDatabase();
 			createPreparedStatement(sql);
@@ -77,7 +77,7 @@ public class MatchDao extends DataAccessObject {
 				+ "match_date < TO_DATE('" + to + "', 'yyyy-mm-dd')";
 		List<Match> matchList = new ArrayList<Match>();
 		ResultSet rs = null;
-		
+
 		try {
 			connectToDatabase();
 			createPreparedStatement(sql);
@@ -89,8 +89,35 @@ public class MatchDao extends DataAccessObject {
 			closePreparedStatement();
 			disconnectFromDatabase();
 		}
-		
+
 		return matchList;
 	}
 
+	List<Match> getTeamMatches(int teamid, String from, String to) {
+		final String sql = "SELECT match_id, league_id, "
+				+ "home_id, away_id, goals_home, goals_away, "
+				+ "TO_CHAR(match_date, 'YYYY-MM-DD HH24:MI:SS') \"match_date\" "
+				+ "FROM matches "
+				+ "WHERE (home_id = " + teamid + " OR away_id = " + teamid + ") AND "
+				+ "match_date > TO_DATE('" + from + "', 'yyyy-mm-dd') AND "
+				+ "match_date < TO_DATE('" + to + "', 'yyyy-mm-dd')";
+		List<Match> matchList = new ArrayList<Match>();
+		ResultSet rs = null;
+
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			matchList = MatchParser.parseListFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+
+		return matchList;
+	}
+	
 }
+

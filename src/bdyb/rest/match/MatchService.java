@@ -56,6 +56,18 @@ public class MatchService {
 	}
 	
 	@POST
+	@Path("/matches/{teamid}")
+	@Produces(MediaType.APPLICATION_ATOM_XML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public List<Match> getMatches(
+			@PathParam("teamid") int teamid,
+			@FormParam("from") String from,
+			@FormParam("to") String to){
+		List<Match> allMatches = matchDao.getTeamMatches(teamid, from, to);
+		return allMatches; 
+	}
+	
+	@POST
 	@Path("/match/{matchid}")
 	@Produces(MediaType.APPLICATION_ATOM_XML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
