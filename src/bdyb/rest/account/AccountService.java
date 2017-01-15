@@ -21,6 +21,7 @@ public class AccountService {
 			@FormParam("login") String login,
 			@FormParam("haslo") String pass) {
 		String result = accDao.login(login, pass);
+		result = "<login>" + result + "</login>";
 		return result;
 	}
 	
