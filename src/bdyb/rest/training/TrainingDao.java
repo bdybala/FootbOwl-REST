@@ -16,7 +16,7 @@ public class TrainingDao extends DataAccessObject {
 				+ "FROM trainings";
 		List<Training> trainingList = new ArrayList<Training>();
 		ResultSet rs = null;
-		
+
 		try {
 			connectToDatabase();
 			createPreparedStatement(sql);
@@ -28,7 +28,7 @@ public class TrainingDao extends DataAccessObject {
 			closePreparedStatement();
 			disconnectFromDatabase();
 		}
-		
+
 		return trainingList;
 	}
 
@@ -76,7 +76,7 @@ public class TrainingDao extends DataAccessObject {
 				+ "training_date < TO_DATE('" + to + "', 'yyyy-mm-dd')";
 		List<Training> trainingList = new ArrayList<Training>();
 		ResultSet rs = null;
-		
+
 		try {
 			connectToDatabase();
 			createPreparedStatement(sql);
@@ -88,7 +88,7 @@ public class TrainingDao extends DataAccessObject {
 			closePreparedStatement();
 			disconnectFromDatabase();
 		}
-		
+
 		return trainingList;
 	}
 
@@ -120,7 +120,7 @@ public class TrainingDao extends DataAccessObject {
 				+ "training_date < TO_DATE('" + to + "', 'yyyy-mm-dd')";
 		List<Training> trainingList = new ArrayList<Training>();
 		ResultSet rs = null;
-		
+
 		try {
 			connectToDatabase();
 			createPreparedStatement(sql);
@@ -132,8 +132,25 @@ public class TrainingDao extends DataAccessObject {
 			closePreparedStatement();
 			disconnectFromDatabase();
 		}
-		
+
 		return trainingList;
 	}
 
+	int assignTeam(int teamid, int trainingid) {
+		String sql = TrainingParser.createAssignTeamQuery(teamid, trainingid);
+
+		int rows = 0;
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rows = pStmt.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return rows;	
+	}
 }
+

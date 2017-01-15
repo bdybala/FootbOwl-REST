@@ -88,4 +88,17 @@ public class TrainingService {
 		return FAILURE_RESULT;
 		
 	}
+	
+	@PUT
+	@Path("/assignTeam")
+	@Produces(MediaType.APPLICATION_ATOM_XML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String assignTeam(
+			@FormParam("team_id") int teamid,
+			@FormParam("training_id") int trainingid) {
+		int rows = trainingDao.assignTeam(teamid, trainingid);
+		
+		return SUCCESS_RESULT;
+	}
+	
 }
