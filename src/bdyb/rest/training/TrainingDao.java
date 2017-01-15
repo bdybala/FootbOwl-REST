@@ -68,4 +68,29 @@ public class TrainingDao extends DataAccessObject {
 		return sql;
 	}
 
+	List<Training> getAllTrainings(String from, String to) {
+		final String sql = "SELECT training_id, training_desc,"
+				+ "TO_CHAR(training_date, 'yyyy-mm-dd hh24:mi:ss') \"training_date\", "
+				+ "training_place "
+				+ "FROM trainings "
+				+ "WHERE training_date > TO_DATE('" + from + "', 'yyyy-mm-dd') AND "
+				+ "training_date < TO_DATE('" + to + "', 'yyyy-mm-dd')";
+		List<Training> trainingList = new ArrayList<Training>();
+		ResultSet rs = null;
+		
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			trainingList = TrainingParser.parseListFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		
+		return trainingList;
+	}
+
 }

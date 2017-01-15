@@ -26,6 +26,17 @@ public class TrainingService {
 		return allTrainings;
 	}
 	
+	@POST
+	@Path("/trainings/between")
+	@Produces(MediaType.APPLICATION_ATOM_XML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public List<Training> getTrainingsBetween(
+			@FormParam("from") String from,
+			@FormParam("to") String to) {
+		List<Training> allTrainings = trainingDao.getAllTrainings(from, to);
+		return allTrainings;
+	}
+	
 	@PUT
 	@Path("/trainings")
 	@Produces(MediaType.APPLICATION_ATOM_XML)
