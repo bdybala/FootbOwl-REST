@@ -44,6 +44,9 @@ public class Stats {
 	public Stats() {
 	}
 	
+	public Stats(String season) {
+		this.season = season;
+	}
 	public int getStats_id() {
 		return stats_id;
 	}

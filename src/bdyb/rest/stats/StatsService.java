@@ -31,23 +31,10 @@ public class StatsService {
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String createStats(
-			@FormParam("season") String season,
-			@FormParam("matches") Integer matches,
-			@FormParam("wins") Integer wins,
-			@FormParam("draws") Integer draws,
-			@FormParam("loses") Integer loses,
-			@FormParam("yellow_cards") Integer yellow_cards,
-			@FormParam("red_cards") Integer red_cards,
-			@FormParam("goals") Integer goals,
-			@FormParam("assists") Integer assists,
-			@FormParam("mins_played") Integer mins_played,
-			@FormParam("clean_sheets") Integer clean_sheets,
-			@FormParam("shots") Integer shots) {
+			@FormParam("season") String season) {
 		
 		// TODO if exists return DUPLICATE
-		Stats s = new Stats(season, matches, wins, 
-				draws, loses,yellow_cards, red_cards, 
-				goals, assists, mins_played, clean_sheets, shots);
+		Stats s = new Stats(season);
 		statsDao.createStats(s);
 		// TODO if exists return SUCCESS
 		return SUCCESS_RESULT;
