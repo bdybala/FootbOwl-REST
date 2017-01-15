@@ -29,7 +29,16 @@ public class CoachService {
 		List<Coach> allCoaches = coachDao.getAllCoaches();
 		return allCoaches;
 	}
-
+	
+	@GET
+	@Path("/coach/{userid}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Coach getCoach(
+			@PathParam("userid") int userid) {
+		Coach c = coachDao.getCoach(userid);
+		return c;
+	}
+		
 	@PUT
 	@Path("/coaches")
 	@Produces(MediaType.APPLICATION_XML)

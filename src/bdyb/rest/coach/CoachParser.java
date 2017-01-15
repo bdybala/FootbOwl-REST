@@ -93,4 +93,34 @@ public class CoachParser {
 		return query;
 	}
 
+	static Coach parseCoachFromResultSet(ResultSet rs) {
+		Coach c = null;
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		try {
+			if(rs.next()) {
+				c = new Coach();
+
+				c.setiD(			rs.getInt(		DB_ID));
+				c.setRegDate(		new Date(dbDateFormat.parse(rs.getString(DB_REG_DATE)).getTime()));
+				if (rs.getString(DB_LAST_LOGGED) != null)
+					c.setLastLogged(new Date(dbDateFormat.parse(rs.getString(DB_LAST_LOGGED)).getTime()));
+				c.setFirstName(		rs.getString(	DB_FIRST_NAME));
+				c.setLastName(		rs.getString(	DB_LAST_NAME));
+				c.setBirthday(		rs.getDate(		DB_BIRTHDAY));
+				c.setPhoto(			rs.getBytes(	DB_PHOTO));
+				c.setLogin(			rs.getString(	DB_LOGIN));
+				c.setPass(			rs.getString(	DB_PASSWORD));
+				c.setLicence(		rs.getString(	DB_LICENCE));
+				c.setTeamiD(		rs.getInt(		DB_TEAM_ID));
+				c.setIsLogged(		rs.getInt(		DB_IS_LOGGED));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return c;
+	}
+
 }
