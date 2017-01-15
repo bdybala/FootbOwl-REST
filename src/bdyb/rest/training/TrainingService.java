@@ -28,6 +28,17 @@ public class TrainingService {
 	}
 	
 	@POST
+	@Path("/trainings/{userid}")
+	@Produces(MediaType.APPLICATION_ATOM_XML)
+	public List<Training> getTrainings(
+			@PathParam("userid") int userid,
+			@FormParam("from") String from,
+			@FormParam("to") String to) {
+		List<Training> allTrainings = trainingDao.getPlayerTrainings(userid, from, to);
+		return allTrainings;
+	}
+	
+	@POST
 	@Path("/trainings/between")
 	@Produces(MediaType.APPLICATION_ATOM_XML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

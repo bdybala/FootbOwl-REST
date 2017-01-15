@@ -109,4 +109,31 @@ public class TrainingDao extends DataAccessObject {
 		return rows;	
 	}
 
+	List<Training> getPlayerTrainings(int userid, String from, String to) {
+		final String sql = "SELECT trainings.training_id, training_desc,"
+				+ "TO_CHAR(training_date, 'yyyy-mm-dd hh24:mi:ss') \"training_date\", "
+				+ "training_place "
+				+ "FROM trainings JOIN players_trainings "
+				+ "ON trainings.training_id = players_trainings.training_id "
+				+ "WHERE play_acc_id = " + userid + " AND "
+				+ "training_date > TO_DATE('" + from + "', 'yyyy-mm-dd') AND "
+				+ "training_date < TO_DATE('" + to + "', 'yyyy-mm-dd')";
+		List<Training> trainingList = new ArrayList<Training>();
+		ResultSet rs = null;
+		
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			trainingList = TrainingParser.parseListFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		
+		return trainingList;
+	}
+
 }

@@ -61,6 +61,7 @@ public class TrainingParser {
 	static String createAssignQuery(int playerid, int trainingid) {
 		String query = String.format("INSERT INTO players_trainings VALUES (%s, %s)", 
 				playerid, trainingid);
+		System.out.println(query);
 		return query;
 	}
 
