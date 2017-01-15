@@ -81,5 +81,34 @@ public class ManagerParser {
 		query += String.format(" WHERE acc_id = %s", userid);
 		return query;
 	}
+
+	static Manager parseManagerFromResultSet(ResultSet rs) {
+		Manager m = null;
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		try {
+			if(rs.next()) {
+				m = new Manager();
+
+				m.setiD(			rs.getInt(		DB_ID));
+				m.setRegDate(		new Date(dbDateFormat.parse(rs.getString(DB_REG_DATE)).getTime()));
+				if(rs.getString(DB_LAST_LOGGED) != null)
+					m.setLastLogged(new Date(dbDateFormat.parse(rs.getString(DB_LAST_LOGGED)).getTime()));
+				m.setFirstName(		rs.getString(	DB_FIRST_NAME));
+				m.setLastName(		rs.getString(	DB_LAST_NAME));
+				m.setBirthday(		rs.getDate(		DB_BIRTHDAY));
+				m.setPhoto(			rs.getBytes(	DB_PHOTO));
+				m.setLogin(			rs.getString(	DB_LOGIN));
+				m.setPass(			rs.getString(	DB_PASSWORD));
+				m.setIsLogged(		rs.getInt(		DB_IS_LOGGED));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return m;
+	}
 	
 }

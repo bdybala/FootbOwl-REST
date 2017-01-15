@@ -30,6 +30,15 @@ public class ManagerService {
 		return allManagers;
 	}
 	
+	@GET
+	@Path("/manager/{userid}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Manager getManager(
+			@PathParam("userid") int userid) {
+		Manager m = managerDao.getManager(userid);
+		return m;
+	}
+	
 	@PUT
 	@Path("/managers")
 	@Produces(MediaType.APPLICATION_XML)
