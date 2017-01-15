@@ -28,6 +28,15 @@ public class PlayerService {
 		List<Player> allPlayers = playerDao.getAllPlayers();
 		return allPlayers;
 	}
+	
+	@GET
+	@Path("/player/{userid}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Player getPlayer(
+			@PathParam("userid") int userid) {
+		Player p = playerDao.getPlayer(userid);
+		return p;
+	}
 
 	@PUT
 	@Path("/players")

@@ -97,4 +97,35 @@ public class PlayerParser {
 		return query;
 	}
 
+	static Player parsePlayerFromResultSet(ResultSet rs) {
+		Player p = null;
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		try {
+			if (rs.next()) {
+				p = new Player();
+
+				p.setiD(			rs.getInt(		DB_ID));
+				p.setRegDate(		new Date(dbDateFormat.parse(rs.getString(DB_REG_DATE)).getTime()));
+				if (rs.getString(DB_LAST_LOGGED) != null)
+					p.setLastLogged(new Date(dbDateFormat.parse(rs.getString(DB_LAST_LOGGED)).getTime()));
+				p.setFirstName(		rs.getString(	DB_FIRST_NAME));
+				p.setLastName(		rs.getString(	DB_LAST_NAME));
+				p.setBirthday(		rs.getDate(		DB_BIRTHDAY));
+				p.setPhoto(			rs.getBytes(	DB_PHOTO));
+				p.setLogin(			rs.getString(	DB_LOGIN));
+				p.setPass(			rs.getString(	DB_PASSWORD));
+				p.setTeamiD(		rs.getInt(		DB_TEAM_ID));
+				p.setPosition(		rs.getString(	DB_POSITION));
+				p.setPrefFoot(		rs.getString(	DB_PREF_FOOT));
+				p.setIsLogged(		rs.getInt(		DB_IS_LOGGED));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return p;
+	}
+
 }

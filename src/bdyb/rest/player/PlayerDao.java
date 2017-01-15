@@ -94,6 +94,31 @@ public class PlayerDao extends DataAccessObject {
 		}
 		return sql;
 	}
+
+	Player getPlayer(int userid) {
+		final String sql = "SELECT accounts.acc_id, acc_type, "
+				+ "TO_CHAR(reg_date, 'YYYY-MM-DD HH24:MI:SS') \"reg_date\", "
+				+ "TO_CHAR(last_logged, 'YYYY-MM-DD HH24:MI:SS') \"last_logged\", "
+				+ "first_name, last_name, birthday, photo, login, pass, team_id, position, pref_foot, is_logged "
+				+ "FROM players LEFT JOIN accounts "
+				+ "ON accounts.acc_id = players.acc_id "
+				+ "WHERE accounts.acc_id = " + userid;
+		Player p = null;
+		ResultSet rs = null;
+//		System.out.println(sql);
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			p = PlayerParser.parsePlayerFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return p;
+	}
 	
 	
 }
