@@ -51,7 +51,8 @@ public class PlayerService {
 	@Path("/players")
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String createPlayer(@FormParam("iddruzyny") int iddruzyny,
+	public String createPlayer(
+			@FormParam("team_id") int iddruzyny,
 			@FormParam("first_name") String imie,
 			@FormParam("last_name") String nazwisko,
 			@FormParam("birthday") String dataurodzenia,
