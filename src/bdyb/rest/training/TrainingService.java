@@ -30,6 +30,7 @@ public class TrainingService {
 	@POST
 	@Path("/trainings/{userid}")
 	@Produces(MediaType.APPLICATION_ATOM_XML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public List<Training> getTrainings(
 			@PathParam("userid") int userid,
 			@FormParam("from") String from,
