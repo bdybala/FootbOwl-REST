@@ -58,7 +58,7 @@ public class ManagerParser {
 		String query = String.format("CALL insert_manager ("
 				+ "'%s','%s',TO_DATE('%s','yyyy-mm-dd'),'%s','%s',%s)",
 				m.getFirstName(), m.getLastName(), m.getBirthday(),
-				m.getLogin(), m.getPass(), "?");
+				m.getLogin(), m.getPass(), "null");
 		return query;
 	}
 
