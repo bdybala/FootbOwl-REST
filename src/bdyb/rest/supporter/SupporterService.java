@@ -30,6 +30,15 @@ public class SupporterService {
 		return allSupporters;
 	}
 	
+	@GET
+	@Path("/supporter/{userid}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Supporter getSupporter(
+			@PathParam("userid") int userid) {
+		Supporter s = supporterDao.getSupporter(userid);
+		return s;
+	}
+	
 	@PUT
 	@Path("/supporters")
 	@Produces(MediaType.APPLICATION_XML)

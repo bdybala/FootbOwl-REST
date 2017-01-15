@@ -93,5 +93,31 @@ public class SupporterDao extends DataAccessObject {
 		}
 		return rows;
 	}
+
+	Supporter getSupporter(int userid) {
+		final String sql = "SELECT accounts.acc_id, acc_type, "
+				+ "TO_CHAR(reg_date, 'YYYY-MM-DD HH24:MI:SS') \"reg_date\", "
+				+ "TO_CHAR(last_logged, 'YYYY-MM-DD HH24:MI:SS') \"last_logged\", "
+				+ "first_name, last_name, birthday, photo, login, pass, is_logged "
+				+ "FROM supporters LEFT JOIN accounts "
+				+ "ON accounts.acc_id = supporters.acc_id "
+				+ "WHERE accounts.acc_id = " + userid;
+		Supporter s = null;
+		ResultSet rs = null;
+		
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			s = SupporterParser.parseSupporterFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+			
+		return s;
+	}
 	
 }

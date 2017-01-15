@@ -81,4 +81,33 @@ public class SupporterParser {
 		return query;
 	}
 
+	static Supporter parseSupporterFromResultSet(ResultSet rs) {
+		Supporter s = null;
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		try {
+			if(rs.next()) {
+				s = new Supporter();
+
+				s.setiD(			rs.getInt(		DB_ID));
+				s.setRegDate(		new Date(dbDateFormat.parse(rs.getString(DB_REG_DATE)).getTime()));
+				if(rs.getString(DB_LAST_LOGGED) != null)
+					s.setLastLogged(new Date(dbDateFormat.parse(rs.getString(DB_LAST_LOGGED)).getTime()));
+				s.setFirstName(		rs.getString(	DB_FIRST_NAME));
+				s.setLastName(		rs.getString(	DB_LAST_NAME));
+				s.setBirthday(		rs.getDate(		DB_BIRTHDAY));
+				s.setPhoto(			rs.getBytes(	DB_PHOTO));
+				s.setLogin(			rs.getString(	DB_LOGIN));
+				s.setPass(			rs.getString(	DB_PASSWORD));
+				s.setIsLogged(		rs.getInt(		DB_IS_LOGGED));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+
 }
