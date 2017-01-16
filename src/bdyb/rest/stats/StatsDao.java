@@ -66,7 +66,7 @@ public class StatsDao extends DataAccessObject{
 	}
 
 	Stats getTeamStats(int teamid) {
-		final String sql = "SELECT stats.* FROM stats JOIN teams ON teams.stats_id = stats.stats_id";
+		final String sql = "SELECT stats.* FROM stats JOIN teams ON teams.stats_id = stats.stats_id WHERE team_id = " + teamid;
 		Stats s = null;
 		ResultSet rs = null;
 		
