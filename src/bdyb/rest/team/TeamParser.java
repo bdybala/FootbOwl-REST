@@ -42,7 +42,8 @@ public class TeamParser {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return teamList;	}
+		return teamList;	
+	}
 
 	static String createInsertQuery(Team t) {
 		String query =  String.format("INSERT INTO teams VALUES("
@@ -74,6 +75,30 @@ public class TeamParser {
 		query = query.substring(0, query.length()-2);
 		query += String.format(" WHERE team_id = %s", teamid);
 		return query;
+	}
+
+	static Team parseTeamFromResultSet(ResultSet rs) {
+		Team t = null;
+		try {
+			if(rs.next()) {
+				t = new Team();
+
+				t.setiD(			rs.getInt(		DB_ID));
+				t.setManageriD(		rs.getInt(		DB_MANAGER_ID));
+				t.setStatsiD(		rs.getInt(		DB_STATS_ID));
+				t.setLeagueiD(		rs.getInt(		DB_LEAGUE_ID));
+				t.setFullName(		rs.getString(	DB_FULL_NAME));
+				t.setAbbreviation(	rs.getString(	DB_ABB_NAME));
+				t.setCountry(		rs.getString(	DB_COUNTRY));
+				t.setCounty(		rs.getString(	DB_COUNTY));
+				t.setTown(			rs.getString(	DB_TOWN));
+				t.setPhoto(			rs.getBytes(	DB_PHOTO));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return t;	
 	}
 
 }

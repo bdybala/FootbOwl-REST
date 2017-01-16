@@ -73,4 +73,44 @@ public class TeamDao extends DataAccessObject {
 		}
 		return sql;
 	}
+
+	Team getPlayerTeam(int playerid) {
+		final String sql = "SELECT teams.* FROM teams JOIN players "
+				+ "ON players.team_id = teams.team_id WHERE acc_id = " + playerid;
+		Team t = null;
+		ResultSet rs = null;
+		
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			t = TeamParser.parseTeamFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return t;
+	}
+
+	Team getManagerTeam(int managerid) {
+		final String sql = "SELECT * FROM teams "
+				+ "WHERE man_acc_id = " + managerid;
+		Team t = null;
+		ResultSet rs = null;
+		
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			t = TeamParser.parseTeamFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return t;
+	}
 }

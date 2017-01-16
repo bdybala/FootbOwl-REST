@@ -29,6 +29,23 @@ public class TeamService {
 		return allTeams;
 	}
 	
+	@GET
+	@Path("/playerTeam/{userid}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Team getPlayerTeam(
+			@PathParam("userid") int playerid) {
+		Team t = teamDao.getPlayerTeam(playerid);
+		return t;
+	}
+	
+	@GET
+	@Path("/managerTeam/{userid}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Team getManagerTeam(
+			@PathParam("userid") int managerid) {
+		Team t = teamDao.getManagerTeam(managerid);
+		return t;
+	}
 	@PUT
 	@Path("/teams")
 	@Produces(MediaType.APPLICATION_XML)
