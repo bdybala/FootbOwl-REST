@@ -65,4 +65,24 @@ public class StatsDao extends DataAccessObject{
 		return sql;
 	}
 
+	Stats getTeamStats(int teamid) {
+		final String sql = "SELECT stats.* FROM stats JOIN teams ON teams.stats_id = stats.stats_id";
+		Stats s = null;
+		ResultSet rs = null;
+		
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			s = StatsParser.parseStatsFromResultSet(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		
+		return s;
+	}
+
 }

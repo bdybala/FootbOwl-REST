@@ -26,6 +26,15 @@ public class StatsService {
 		return statsDao.getStats();
 	}
 	
+	@GET
+	@Path("/stats/team/{teamid}")
+	@Produces(MediaType.APPLICATION_XML)
+	public Stats getStats(
+			@PathParam("teamid") int teamid) {
+		return statsDao.getTeamStats(teamid);
+	}
+	
+	
 	@PUT
 	@Path("/stats")
 	@Produces(MediaType.APPLICATION_XML)

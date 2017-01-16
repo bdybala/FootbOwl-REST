@@ -81,5 +81,36 @@ class StatsParser {
 		return query;
 	}
 
+	static Stats parseStatsFromResultSet(ResultSet rs) {
+		Stats s = null;
+
+		try {
+			if(rs.next()) {
+				s = new Stats();
+
+				s.setStats_id(		rs.getInt(		DB_STATS_ID));
+				s.setSeason(		rs.getString(	DB_SEASON));
+				s.setMatches(		rs.getInt(		DB_MATCHES));
+				s.setWins(			rs.getInt(		DB_WINS));
+				s.setDraws(			rs.getInt(		DB_DRAWS));
+				s.setLoses(			rs.getInt(		DB_LOSES));
+				s.setYellow_cards(	rs.getInt(		DB_YELLOW_CARDS));
+				s.setRed_cards(		rs.getInt(		DB_RED_CARDS));
+				s.setGoals(			rs.getInt(		DB_GOALS));
+				s.setAssists(		rs.getInt(		DB_ASSISTS));
+				s.setMins_played(	rs.getInt(		DB_MINS_PLAYED));
+				s.setClean_sheets(	rs.getInt(		DB_CLEAN_SHEETS));
+				s.setShots(			rs.getInt(		DB_SHOTS));
+
+
+			} else {
+				return null; // no such stats
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+
 
 }
