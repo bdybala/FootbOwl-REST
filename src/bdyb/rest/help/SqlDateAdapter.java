@@ -1,27 +1,25 @@
 package bdyb.rest.help;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class SqlDateAdapter extends XmlAdapter<java.util.Date, java.sql.Date> {
+public class SqlDateAdapter extends XmlAdapter<Long, java.sql.Date> {
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
 
 	@Override
-	public java.util.Date marshal(java.sql.Date v) throws Exception {
-		java.util.Date result = new java.util.Date(v.getTime());
+	public Long marshal(Date v) throws Exception {
 		
-		return result;
+		return v.getTime();
 	}
 
 	@Override
-	public java.sql.Date unmarshal(java.util.Date v) throws Exception {
-		java.sql.Date result = new java.sql.Date(v.getTime());
-		return result;
+	public Date unmarshal(Long v) throws Exception {
+		return new Date(v);
 	}
-	
 	
 
 }
