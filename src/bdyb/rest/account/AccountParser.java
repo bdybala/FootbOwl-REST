@@ -13,7 +13,6 @@ public class AccountParser {
 				return result;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "fail";
