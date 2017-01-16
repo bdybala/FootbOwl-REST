@@ -57,9 +57,10 @@ public class TrainingService {
 	public String createTraining(
 			@FormParam("training_desc") String training_desc,
 			@FormParam("training_date") String training_date,
-			@FormParam("training_place") String training_place) {
+			@FormParam("training_place") String training_place,
+			@FormParam("training_end") String training_end) {
 		
-		Training t = new Training(training_desc, training_date, training_place);
+		Training t = new Training(training_desc, training_date, training_place, training_end);
 		trainingDao.createTraining(t);
 		return SUCCESS_RESULT;
 	}
@@ -72,8 +73,9 @@ public class TrainingService {
 			@PathParam("trainingid") int training_id,
 			@FormParam("training_desc") String desc,
 			@FormParam("training_date") String date,
-			@FormParam("training_place") String place) {
-		return trainingDao.updateTraining(training_id, desc, date, place);
+			@FormParam("training_place") String place,
+			@FormParam("training_end") String end) {
+		return trainingDao.updateTraining(training_id, desc, date, place, end);
 	}
 	
 	@PUT

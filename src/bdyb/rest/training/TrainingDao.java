@@ -12,7 +12,8 @@ public class TrainingDao extends DataAccessObject {
 	List<Training> getAllTrainings() {
 		final String sql = "SELECT training_id, training_desc,"
 				+ "TO_CHAR(training_date, 'yyyy-mm-dd hh24:mi:ss') \"training_date\", "
-				+ "training_place "
+				+ "training_place, "
+				+ "TO_CHAR(training_end, 'yyyy-mm-dd hh24:mi:ss') \"training_end\""
 				+ "FROM trainings";
 		List<Training> trainingList = new ArrayList<Training>();
 		ResultSet rs = null;
@@ -50,10 +51,10 @@ public class TrainingDao extends DataAccessObject {
 		return rows;		
 	}
 
-	String updateTraining(int training_id, String training_desc, String training_date, String training_place) {
+	String updateTraining(int training_id, String training_desc, String training_date, String training_place, String training_end) {
 
 		String sql = TrainingParser.createUpdateQuery(
-				training_id, training_desc, training_date, training_place);
+				training_id, training_desc, training_date, training_place, training_end);
 		try {
 			connectToDatabase();
 			createPreparedStatement(sql);
