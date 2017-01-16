@@ -41,7 +41,6 @@ public class MatchDao extends DataAccessObject {
 			connectToDatabase();
 			createPreparedStatement(sql);
 			rows = pStmt.executeUpdate();
-			System.out.println(rows);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		} finally {

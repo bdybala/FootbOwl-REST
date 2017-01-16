@@ -47,7 +47,7 @@ public class MatchParser {
 
 	static String createInsertQuery(Match m) {
 		String query = String.format("CALL insert_match ("
-				+ "'%s', '%s', '%s', '%s', '%s', TO_DATE('%s', 'yyyy-mm-dd hh24:mi:ss')",
+				+ "'%s', '%s', '%s', '%s', '%s', TO_DATE('%s', 'yyyy-mm-dd hh24:mi:ss'))",
 				m.getLeague_id(), m.getHome_id(), m.getAway_id(), 
 				m.getGoals_home(), m.getGoals_away(), m.getMatch_date());
 		return query;
