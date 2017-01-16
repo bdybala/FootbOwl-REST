@@ -18,4 +18,16 @@ public class AccountParser {
 		return "fail";
 	}
 
+	static int parseLoggedFromResultset(ResultSet rs) {
+		try {
+			if (rs.next()) {
+				int result = rs.getInt("is_logged");
+				return result;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

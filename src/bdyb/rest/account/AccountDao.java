@@ -25,4 +25,22 @@ public class AccountDao extends DataAccessObject {
 		}
 		return result;
 	}
+
+	int isLogged(int userid) {
+		String sql = "SELECT is_logged FROM accounts WHERE acc_id = " + userid;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			connectToDatabase();
+			createPreparedStatement(sql);
+			rs = pStmt.executeQuery();
+			result = AccountParser.parseLoggedFromResultset(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closePreparedStatement();
+			disconnectFromDatabase();
+		}
+		return result;
+	}
 }
