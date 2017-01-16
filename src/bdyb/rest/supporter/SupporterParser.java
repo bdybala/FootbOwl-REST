@@ -75,7 +75,7 @@ public class SupporterParser {
 		if(photo != null)
 			query += String.format("photo = ?, ");
 		if(islogged != null)
-			query += String.format("islogged = ?, ", islogged);
+			query += String.format("islogged = '%s', ", islogged);
 		query = query.substring(0, query.length()-2);
 		query += String.format(" WHERE acc_id = %s", userid);
 		return query;
