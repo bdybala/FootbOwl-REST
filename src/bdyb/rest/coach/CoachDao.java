@@ -46,7 +46,6 @@ public class CoachDao extends DataAccessObject {
 			connectToDatabase();
 			createPreparedStatement(sql);
 			rows = pStmt.executeUpdate();
-			System.out.println(rows);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		} finally {
@@ -57,7 +56,7 @@ public class CoachDao extends DataAccessObject {
 	}
 
 	int selectLogin(String login) {
-		String sql = String.format("SELECT count(*) FROM accounts WHERE login = '%s'", login);
+		String sql = String.format("SELECT * FROM accounts WHERE login = '%s'", login);
 		int rows = 0;
 		try {
 			connectToDatabase();
