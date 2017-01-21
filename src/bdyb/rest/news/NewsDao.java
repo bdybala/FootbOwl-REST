@@ -14,8 +14,8 @@ public class NewsDao extends DataAccessObject {
 
 	List<News> getAllNews() {
 		final String sql = "SELECT news_id, team_id, acc_id, "
-				+ "TO_CHAR(created, 'YYYY-MM-DD HH24:MI:SS') \"created\", "
-				+ "title, body, photo"
+				+ "TO_CHAR(created, 'YYYY-MM-DD HH24:MI:SS') \"created\",  "
+				+ "title, body, photo "
 				+ "FROM news";
 		List<News> newsList = new ArrayList<News>();
 		ResultSet rs = null;
